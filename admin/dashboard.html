@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - المهندس للمبيعات</title>
+    <link rel="stylesheet" href="../css/admin-style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>المهندس</h1>
+                <p>لوحة التحكم</p>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-section="overview">نظرة عامة</a></li>
+                    <li><a href="#" class="nav-link" data-section="subscriptions">الاشتراكات</a></li>
+                    <li><a href="#" class="nav-link" data-section="users">المستخدمون</a></li>
+                    <li><a href="#" class="nav-link" data-section="stores">المتاجر</a></li>
+                    <li><a href="#" class="nav-link" data-section="reports">التقارير</a></li>
+                    <li><a href="#" class="nav-link" data-section="settings">الإعدادات</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn-logout" id="logoutBtn">تسجيل الخروج</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <div class="header-left">
+                    <h2 id="sectionTitle">نظرة عامة</h2>
+                </div>
+                <div class="header-right">
+                    <div class="admin-profile">
+                        <span id="adminName">المسؤول</span>
+                        <img src="../assets/avatar.png" alt="صورة المسؤول" class="avatar">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Sections -->
+            <div class="content-area">
+                <!-- Overview Section -->
+                <section id="overview" class="section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>عدد المشتركين</h3>
+                            <p class="stat-value" id="totalSubscribers">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>الاشتراكات النشطة</h3>
+                            <p class="stat-value" id="activeSubscriptions">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>إجمالي الإيرادات</h3>
+                            <p class="stat-value" id="totalRevenue">$0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>المتاجر المسجلة</h3>
+                            <p class="stat-value" id="totalStores">0</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Subscriptions Section -->
+                <section id="subscriptions" class="section">
+                    <div class="section-header">
+                        <h3>إدارة الاشتراكات</h3>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>معرّف المتجر</th>
+                                <th>اسم المتجر</th>
+                                <th>حالة الاشتراك</th>
+                                <th>تاريخ الانتهاء</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subscriptionsTable">
+                            <!-- Dynamically populated -->
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Users Section -->
+                <section id="users" class="section">
+                    <div class="section-header">
+                        <h3>إدارة المستخدمين</h3>
+                        <button class="btn-primary" id="addUserBtn">إضافة مستخدم</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>البريد الإلكتروني</th>
+                                <th>الاسم</th>
+                                <th>الدور</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <!-- Dynamically populated -->
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Stores Section -->
+                <section id="stores" class="section">
+                    <div class="section-header">
+                        <h3>إدارة المتاجر</h3>
+                    </div>
+                    <div class="stores-grid" id="storesGrid">
+                        <!-- Dynamically populated -->
+                    </div>
+                </section>
+
+                <!-- Reports Section -->
+                <section id="reports" class="section">
+                    <div class="section-header">
+                        <h3>التقارير</h3>
+                    </div>
+                    <div class="reports-container">
+                        <div class="report-card">
+                            <h4>تقرير الإيرادات</h4>
+                            <div id="revenueChart"></div>
+                        </div>
+                        <div class="report-card">
+                            <h4>تقرير المشتركين</h4>
+                            <div id="subscribersChart"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="section">
+                    <div class="section-header">
+                        <h3>الإعدادات</h3>
+                    </div>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>رسم الاشتراك الشهري (بالدولار)</label>
+                            <input type="number" id="monthlyFee" placeholder="100" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>حد أقصى للمتاجر لكل مشترك</label>
+                            <input type="number" id="maxStoresPerUser" placeholder="5" min="1">
+                        </div>
+                        <button class="btn-primary" id="saveSettingsBtn">حفظ الإعدادات</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Extending Subscription -->
+    <div id="extendModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeExtendModal">&times;</span>
+            <h3>تمديد الاشتراك</h3>
+            <input type="number" id="extendMonths" placeholder="عدد الأشهر" min="1" max="12">
+            <button class="btn-primary" id="confirmExtendBtn">تأكيد</button>
+        </div>
+    </div>
+
+    <!-- Modal for Canceling Subscription -->
+    <div id="cancelModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeCancelModal">&times;</span>
+            <h3>إلغاء الاشتراك</h3>
+            <p>هل تريد فعلاً إلغاء هذا الاشتراك؟</p>
+            <button class="btn-danger" id="confirmCancelBtn">إلغاء نهائي</button>
+            <button class="btn-secondary" id="cancelCancelBtn">إلغاء</button>
+        </div>
+    </div>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/admin-app.js"></script>
+</body>
+</html>
