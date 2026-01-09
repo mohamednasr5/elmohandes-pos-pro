@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نقطة البيع</title>
+    <link rel="stylesheet" href="../css/cashier-style.css">
+</head>
+<body>
+    <div class="cashier-container">
+        <!-- Products Section -->
+        <div class="products-section">
+            <div class="search-bar">
+                <input type="text" id="searchProducts" placeholder="ابحث عن منتج" />
+                <input type="text" id="barcodeInput" placeholder="باركود" />
+            </div>
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+
+        <!-- Cart Section -->
+        <div class="cart-section">
+            <h3>سلة التسوق</h3>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>المنتج</th>
+                        <th>السعر</th>
+                        <th>الكمية</th>
+                        <th>الإجمالي</th>
+                        <th>ما</th>
+                    </tr>
+                </thead>
+                <tbody id="cartItems"></tbody>
+            </table>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>الإجمالي:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>الضريبة:</span>
+                    <span id="tax">$0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>المجموع:</span>
+                    <span id="total">$0.00</span>
+                </div>
+            </div>
+            <div class="customer-section">
+                <input type="text" id="customerPhone" placeholder="رقم هاتف العميل" />
+                <input type="text" id="discountInput" placeholder="خصم" />
+            </div>
+            <div class="payment-methods">
+                <button class="payment-btn" data-method="cash">نقد</button>
+                <button class="payment-btn" data-method="card">بطاقة</button>
+                <button class="payment-btn" data-method="cheque">شيك</button>
+            </div>
+            <button class="btn-checkout">إكمال العملية</button>
+            <button class="btn-clear">مستفر</button>
+        </div>
+    </div>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/cashier-app.js"></script>
+</body>
+</html>
