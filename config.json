@@ -1,0 +1,60 @@
+{
+  "app": {
+    "name": "المهندس للمبيعات",
+    "version": "1.0.0",
+    "description": "نظام نقاط بيع متطور متعدد العملاء",
+    "author": "mohamednasr5",
+    "license": "MIT"
+  },
+  "features": {
+    "multiTenant": true,
+    "subscriptionBased": true,
+    "barcodSupport": true,
+    "printing": true,
+    "crm": true,
+    "inventory": true,
+    "reporting": true,
+    "cloudSync": true
+  },
+  "subscriptionPlans": {
+    "basic": {
+      "name": "عراقي",
+      "price": 0,
+      "stores": 1,
+      "users": 3,
+      "features": ["sales", "products", "basic_reports"]
+    },
+    "professional": {
+      "name": "متطور",
+      "price": 99,
+      "stores": -1,
+      "users": -1,
+      "features": ["all"]
+    }
+  },
+  "defaultSettings": {
+    "currency": "SAR",
+    "language": "ar",
+    "dateFormat": "DD/MM/YYYY",
+    "timeFormat": "24H",
+    "taxRate": 15,
+    "dayStartTime": "00:00",
+    "dayEndTime": "23:59"
+  },
+  "database": {
+    "type": "Firebase Realtime Database",
+    "requiresAuth": true,
+    "enableOfflineSync": true
+  },
+  "api": {
+    "baseUrl": "/api/v1",
+    "timeout": 30000,
+    "retryAttempts": 3
+  },
+  "security": {
+    "passwordMinLength": 8,
+    "sessionTimeout": 3600,
+    "enableTwoFA": false,
+    "roleBasedAccess": true
+  }
+}
