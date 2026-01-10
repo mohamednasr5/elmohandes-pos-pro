@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الفواتير - البيع والشراء</title>
+  <link rel="stylesheet" href="../css/store-style.css">
+  <style>
+    .invoice-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .invoice-tab { padding: 12px 25px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .invoice-tab.active { background: #667eea; color: white; }
+    .invoice-form { background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .invoice-list { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .invoice-item { border-bottom: 1px solid #e2e8f0; padding: 15px 0; display: flex; justify-content: space-between; align-items: center; }
+    .invoice-item:last-child { border-bottom: none; }
+    .invoice-actions { display: flex; gap: 10px; }
+    .btn-small { padding: 8px 12px; font-size: 12px; border: none; border-radius: 4px; cursor: pointer; }
+    .btn-print { background: #3182ce; color: white; }
+    .btn-delete { background: #f56565; color: white; }
+    .invoice-detail { color: #718096; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="store-container">
+    <aside class="sidebar">
+      <div class="logo"><h1>المهندس</h1></div>
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="dashboard.html" class="nav-link">لوحة التحكم</a></li>
+          <li><a href="products.html" class="nav-link">المنتجات</a></li>
+          <li><a href="invoices.html" class="nav-link active">الفواتير</a></li>
+          <li><a href="reports.html" class="nav-link">التقارير</a></li>
+          <li><a href="cashier.html" class="nav-link">نقطة البيع</a></li>
+        </ul>
+      </nav>
+      <button class="btn-logout">خروج</button>
+    </aside>
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>إدارة الفواتير</h2>
+        <span id="userName"></span>
+      </header>
+      <div class="content-area">
+        <!-- الأتاب -->
+        <div class="invoice-tabs">
+          <button class="invoice-tab active" onclick="switchTab('sales')">فاتورة بيع</button>
+          <button class="invoice-tab" onclick="switchTab('purchase')">فاتورة شراء</button>
+        </div>
+
+        <!-- فاتورة البيع -->
+        <div id="salesTab" class="active-tab">
+          <div class="invoice-form">
+            <h3>إنشاء فاتورة بيع</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>اسم العميل</label>
+                <input type="text" id="salesCustomer" placeholder="اسم العميل">
+              </div>
+              <div class="form-group">
+                <label>رقم الهاتف</label>
+                <input type="tel" id="salesPhone" placeholder="رقم الهاتف">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>المبلغ (جنيه)</label>
+                <input type="number" id="salesAmount" placeholder="0.00" step="0.01">
+              </div>
+              <div class="form-group">
+                <label>طريقة الدفع</label>
+                <select id="salesPayment">
+                  <option value="نقد">نقد</option>
+                  <option value="بطاقة">بطاقة</option>
+                  <option value="شيك">شيك</option>
+                </select>
+              </div>
+            </div>
+            <textarea id="salesNotes" placeholder="ملاحظات (اختياري)" rows="3" style="width: 100%; margin-bottom: 15px; padding: 10px;"></textarea>
+            <button class="btn-primary" onclick="createSalesInvoice()">إنشاء فاتورة</button>
+          </div>
+          <div class="invoice-list">
+            <h3>فاتورات البيع</h3>
+            <div id="salesList"></div>
+          </div>
+        </div>
+
+        <!-- فاتورة الشراء -->
+        <div id="purchaseTab" class="active-tab" style="display: none;">
+          <div class="invoice-form">
+            <h3>إنشاء فاتورة شراء</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>اسم المورد</label>
+                <input type="text" id="purchaseSupplier" placeholder="اسم المورد">
+              </div>
+              <div class="form-group">
+                <label>رقم الهاتف</label>
+                <input type="tel" id="purchasePhone" placeholder="رقم الهاتف">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>المبلغ (جنيه)</label>
+                <input type="number" id="purchaseAmount" placeholder="0.00" step="0.01">
+              </div>
+              <div class="form-group">
+                <label>طريقة الدفع</label>
+                <select id="purchasePayment">
+                  <option value="نقد">نقد</option>
+                  <option value="بطاقة">بطاقة</option>
+                  <option value="شيك">شيك</option>
+                </select>
+              </div>
+            </div>
+            <textarea id="purchaseNotes" placeholder="ملاحظات (اختياري)" rows="3" style="width: 100%; margin-bottom: 15px; padding: 10px;"></textarea>
+            <button class="btn-primary" onclick="createPurchaseInvoice()">إنشاء الفاتورة</button>
+          </div>
+          <div class="invoice-list">
+            <h3>فاتورات الشراء</h3>
+            <div id="purchaseList"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/invoices-manager.js"></script>
+</body>
+</html>
