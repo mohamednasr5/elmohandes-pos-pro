@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إدارة المنتجات والأصناف</title>
+  <link rel="stylesheet" href="../css/store-style.css">
+  <style>
+    .category-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .category-tab { padding: 10px 20px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s; }
+    .category-tab.active { background: #667eea; color: white; }
+    .add-section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label { margin-bottom: 8px; font-weight: 600; color: #2d3748; }
+    .form-group input, .form-group select { padding: 10px; border: 1px solid #e2e8f0; border-radius: 5px; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+    .product-item { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .product-item h4 { margin-bottom: 10px; color: #2d3748; }
+    .product-item p { color: #718096; font-size: 14px; margin: 5px 0; }
+    .product-actions { display: flex; gap: 10px; margin-top: 15px; }
+    .btn-small { padding: 8px 12px; font-size: 12px; border: none; border-radius: 4px; cursor: pointer; }
+    .btn-edit { background: #48bb78; color: white; }
+    .btn-delete { background: #f56565; color: white; }
+  </style>
+</head>
+<body>
+  <div class="store-container">
+    <aside class="sidebar">
+      <div class="logo"><h1>المهندس</h1></div>
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="dashboard.html" class="nav-link">لوحة التحكم</a></li>
+          <li><a href="products.html" class="nav-link active">المنتجات</a></li>
+          <li><a href="invoices.html" class="nav-link">الفواتير</a></li>
+          <li><a href="reports.html" class="nav-link">التقارير</a></li>
+          <li><a href="cashier.html" class="nav-link">نقطة البيع</a></li>
+        </ul>
+      </nav>
+      <button class="btn-logout">خروج</button>
+    </aside>
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>إدارة المنتجات والأصناف</h2>
+        <span id="userName"></span>
+      </header>
+      <div class="content-area">
+        <!-- إضافة صنف جديد -->
+        <div class="add-section">
+          <h3>إضافة صنف جديد</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>اسم الصنف</label>
+              <input type="text" id="categoryName" placeholder="مثال: إلكترونيات">
+            </div>
+            <div class="form-group">
+              <label>وصف الصنف</label>
+              <input type="text" id="categoryDesc" placeholder="وصف الصنف">
+            </div>
+          </div>
+          <button class="btn-primary" onclick="addCategory()">إضافة الصنف</button>
+        </div>
+        
+        <!-- الأصناف -->
+        <div class="add-section">
+          <h3>الأصناف المتاحة</h3>
+          <div class="category-tabs" id="categoryTabs"></div>
+        </div>
+
+        <!-- إضافة منتج جديد -->
+        <div class="add-section">
+          <h3>إضافة منتج جديد</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>اسم المنتج</label>
+              <input type="text" id="productName" placeholder="اسم المنتج">
+            </div>
+            <div class="form-group">
+              <label>الصنف</label>
+              <select id="productCategory">
+                <option value="">اختر الصنف</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>السعر (جنيه)</label>
+              <input type="number" id="productPrice" placeholder="0.00" step="0.01">
+            </div>
+            <div class="form-group">
+              <label>الكمية</label>
+              <input type="number" id="productQuantity" placeholder="0" value="0">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>الباركود</label>
+              <input type="text" id="productBarcode" placeholder="كود الباركود">
+            </div>
+            <div class="form-group">
+              <label>SKU</label>
+              <input type="text" id="productSKU" placeholder="رمز SKU">
+            </div>
+          </div>
+          <button class="btn-primary" onclick="addProduct()">إضافة المنتج</button>
+        </div>
+
+        <!-- عرض المنتجات -->
+        <div class="add-section">
+          <h3 id="categoryTitle">جميع المنتجات</h3>
+          <div class="products-grid" id="productsGrid"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/products-manager.js"></script>
+</body>
+</html>
