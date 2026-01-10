@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>التقارير والتحليلات</title>
+  <link rel="stylesheet" href="../css/store-style.css">
+  <style>
+    .report-filters { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end; }
+    .filter-group { display: flex; flex-direction: column; gap: 5px; }
+    .filter-group label { font-weight: 600; font-size: 14px; }
+    .filter-group input, .filter-group select { padding: 10px; border: 1px solid #e2e8f0; border-radius: 5px; min-width: 150px; }
+    .report-section { background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .report-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px; }
+    .summary-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; text-align: center; }
+    .summary-card h4 { margin-bottom: 10px; opacity: 0.9; }
+    .summary-card p { font-size: 28px; font-weight: bold; margin: 0; }
+    .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .data-table th { background: #f7fafc; padding: 12px; text-align: right; font-weight: 600; border-bottom: 2px solid #e2e8f0; }
+    .data-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; text-align: right; }
+    .data-table tbody tr:hover { background: #f7fafc; }
+  </style>
+</head>
+<body>
+  <div class="store-container">
+    <aside class="sidebar">
+      <div class="logo"><h1>المهندس</h1></div>
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="dashboard.html" class="nav-link">لوحة التحكم</a></li>
+          <li><a href="products.html" class="nav-link">المنتجات</a></li>
+          <li><a href="invoices.html" class="nav-link">الفواتير</a></li>
+          <li><a href="reports.html" class="nav-link active">التقارير</a></li>
+          <li><a href="cashier.html" class="nav-link">نقطة البيع</a></li>
+        </ul>
+      </nav>
+      <button class="btn-logout">خروج</button>
+    </aside>
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>التقارير والتحليلات</h2>
+        <span id="userName"></span>
+      </header>
+      <div class="content-area">
+        <!-- مراشح البحث -->
+        <div class="report-filters">
+          <div class="filter-group">
+            <label>من التاريخ</label>
+            <input type="date" id="fromDate">
+          </div>
+          <div class="filter-group">
+            <label>إلى التاريخ</label>
+            <input type="date" id="toDate">
+          </div>
+          <button class="btn-primary" onclick="generateReports()">توليد التقارير</button>
+          <button class="btn-primary" style="background: #48bb78;" onclick="exportReports()">تصدير PDF</button>
+          <button class="btn-primary" style="background: #3182ce;" onclick="printReports()">طباعة</button>
+        </div>
+
+        <!-- ملخص الأرقام -->
+        <div class="report-section">
+          <h3>ملخص الأرقام</h3>
+          <div class="report-summary" id="reportSummary">
+            <div class="summary-card">
+              <h4>إجمالي المبيعات</h4>
+              <p id="totalSales">ج.م. 0</p>
+            </div>
+            <div class="summary-card">
+              <h4>عدد المبيعات</h4>
+              <p id="salesCount">0</p>
+            </div>
+            <div class="summary-card">
+              <h4>مصروفات</h4>
+              <p id="expenses">ج.م. 0</p>
+            </div>
+            <div class="summary-card">
+              <h4>الربح</h4>
+              <p id="profit">ج.م. 0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- تقرير المبيعات -->
+        <div class="report-section">
+          <h3>تفاصيل المبيعات</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>التاريخ</th>
+                <th>رقم الفاتورة</th>
+                <th>العميل</th>
+                <th>المبلغ</th>
+                <th>طريقة الدفع</th>
+              </tr>
+            </thead>
+            <tbody id="salesReportBody">
+              <tr><td colspan="5" style="text-align: center; color: #718096;">لا توجد بيانات</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- تقرير المخزن -->
+        <div class="report-section">
+          <h3>تقرير المخزن</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>المنتج</th>
+                <th>الصنف</th>
+                <th>الكمية</th>
+                <th>السعر</th>
+                <th>الإجمالي</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryReportBody">
+              <tr><td colspan="5" style="text-align: center; color: #718096;">لا توجد بيانات</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/reports-manager.js"></script>
+</body>
+</html>
